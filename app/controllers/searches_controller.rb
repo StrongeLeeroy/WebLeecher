@@ -16,6 +16,8 @@ class SearchesController < ApplicationController
   def create
     username = params[:search][:forumuser]
     password = params[:search][:forumpass]
+    session[:username] = username
+    session[:password] = password
     forumchoice = params[:search][:forumchoice]
     query = params[:search][:forumquery]
     digest = Digest::MD5.hexdigest(password)
@@ -139,8 +141,8 @@ class SearchesController < ApplicationController
 
 
   def update
-    username = "Lurkerman" #params[:search][:forumuser]
-    password = "tetillas" #params[:search][:forumpass]
+    username = session[:username]
+    password = session[:password]
     digest = Digest::MD5.hexdigest(password)
     agent = Mechanize.new
     page = agent.get("http://tehparadox.com/forum/index.php")
