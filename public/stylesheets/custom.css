@@ -3,7 +3,7 @@
 }
 
 body {
-  background: #cff;
+  background: #313131;
 }
 
 header {
@@ -12,14 +12,14 @@ header {
 
 header img {
   padding: 1em;
-  background: #fff;
+  background: #E6E6E6;
 }
 
 section {
   margin-top: 1em;
   font-size: 120%;
   padding: 20px;
-  background: #fff;
+  background: #E6E6E6;
 }
 
 section h1 {
@@ -29,17 +29,17 @@ section h1 {
 /* Links */
 
 a {
-  color: #09c;
+  color: #313131;
   text-decoration: none;
 }
 
 a:hover {
-  color: #069;
+  color: #313131;
   text-decoration: underline;
 }
 
 a:visited {
-  color: #069;
+  color: #313131;
 }
 
 /* Navigation */
@@ -49,7 +49,7 @@ nav {
 }
 
 nav {
-  background-color: white;
+  background-color: #E6E6E6;
   padding: 0 0.7em;
   white-space: nowrap;
 }
@@ -71,7 +71,7 @@ nav ul li a {
 }
 
 nav ul li a:visited {
-  color: #09c;
+  color: #313131;
 }
 
 nav ul li a:hover {
@@ -187,6 +187,34 @@ div.field, div.actions {
   padding-right: 20px;
 }
 
-#searchesresult2 {
-
+#searchnewleft {
+  float: left;
+  padding-right: 60px;
 }
+
+.forumchoice {
+  width: 200px;
+  height: 250px;
+}
+
+#searchesresult2 {
+  background-color: #808080;
+  border:1px solid #313131;
+  padding: 5px 5px 5px 5px;
+  color: #313131;
+}
+
+/* css/code.css */
+
+.code-box {
+  font-family: 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Monaco, Courier, monospace;
+  width: 39.5em;
+  line-height: 1.4em;
+  margin: 1em 0;
+  border: 1px solid #aaa8a8;
+  padding: 0.5em 0 0.3em 0.5em;
+  color: #000;
+  overflow: auto;
+  background: #fff url(/img/cut.gif) no-repeat top right;
+}
+  

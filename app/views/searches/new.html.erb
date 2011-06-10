@@ -1,28 +1,46 @@
 <h1>Le Leecher</h1>
 
 <%= form_for(:search, :url => searches_path) do |f| %>
+  <div id="searchnewleft">
+    <div class="field">
+      <%= f.label "Username" %><br />
+      <%= f.text_field :forumuser %>
+    </div>
 
-  <div class="field">
-    <%= f.label "Username" %><br />
-    <%= f.text_field :forumuser %>
+    <div class="field">
+      <%= f.label "Password" %><br />
+      <%= f.password_field :forumpass %>
+    </div>
+
+    <div class="field">
+      <%= f.label "Search Query" %><br />
+      <%= f.text_field :forumquery %>
+    </div>
+
+    <div class="field">
+      <%= f.label "Forum ID" %><br />
+      <%= f.text_field :forumchoice %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "LEECH!" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label "Password" %><br />
-    <%= f.password_field :forumpass %>
+  <div>
+    <%= select_tag :forum_id, options_for_select([
+        ["WHOLE SITE", "6"], 
+        [" Applications", "51"],[" ---- 0Day Releases", "112"],
+        [" Games", "43"], [" ---- Console Games", "76"],   
+        [" Anime", "42"], [" ---- Manga", "44"], 
+        [" Movies", "56"],[" ---- HD - 720p to 1080p", "89"], [" ---- DVDR", "100"], [" ---- TV Shows", "73"], 
+        [" Music", "55"], [" ---- Music Videos", "84"], [" ---- OST", "86"], [" ---- Lossless Audio", "117"], 
+        [" Comic Books", "68"], [" ---- 0Day Releases", "91"], [" ---- DC/Wildstorm/Vertigo", "70"], 
+        [" ---- Image/TopCow", "71"], [" ---- Dark Horse", "88"], [" ---- Alternative Comic", "72"], 
+        [" ---- Crossovers", "87"], 
+        [" Ebooks & Tutorials", "58"], [" Web/Design Resources", "75"]]), 
+        :class => "forumchoice", :multiple => true %>
   </div>
 
-  <div class="field">
-    <%= f.label "Search Query" %><br />
-    <%= f.text_field :forumquery %>
-  </div>
 
-  <div class="field">
-    <%= f.label "Forum ID" %><br />
-    <%= f.text_field :forumchoice %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "LEECH!" %>
-  </div>
 <% end %>
