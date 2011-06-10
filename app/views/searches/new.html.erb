@@ -1,0 +1,28 @@
+<h1>Le Leecher</h1>
+
+<%= form_for(:search, :url => searches_path) do |f| %>
+
+  <div class="field">
+    <%= f.label "Username" %><br />
+    <%= f.text_field :forumuser %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Password" %><br />
+    <%= f.password_field :forumpass %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Search Query" %><br />
+    <%= f.text_field :forumquery %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Forum ID" %><br />
+    <%= f.text_field :forumchoice %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "LEECH!" %>
+  </div>
+<% end %>

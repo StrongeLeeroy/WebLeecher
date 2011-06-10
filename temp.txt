@@ -1,0 +1,246 @@
+
+/**
+* vBulletin 3.8.6 CSS
+* Style: 'TPX'; Style ID: 111
+*/
+@import url("clientscript/vbulletin_css/style-097107b6-00111.css");
+
+<!--
+var SESSIONURL = "";
+var SECURITYTOKEN = "guest";
+var IMGDIR_MISC = "http://tehparadox.com/forum/images/misc";
+var vb_disable_ajax = parseInt("0", 10);
+// -->
+
+<!--
+NcodeImageResizer.MODE = 'newwindow';
+
+NcodeImageResizer.MAXWIDTH = 600;
+NcodeImageResizer.MAXHEIGHT = 600;
+
+
+NcodeImageResizer.MAXWIDTHSIGS = 600;
+NcodeImageResizer.MAXHEIGHTSIGS = 350;
+
+NcodeImageResizer.BBURL = 'http://tehparadox.com/forum';
+
+vbphrase['ncode_imageresizer_warning_small'] = 'Click this bar to view the full image.';
+vbphrase['ncode_imageresizer_warning_filesize'] = 'This image has been resized. Click this bar to view the full image. The original image is sized %1$sx%2$s and weights %3$sKB.';
+vbphrase['ncode_imageresizer_warning_no_filesize'] = 'This image has been resized. Click this bar to view the full image. The original image is sized %1$sx%2$s.';
+vbphrase['ncode_imageresizer_warning_fullsize'] = 'Click this bar to view the small image.';
+//-->
+
+
+table.ncode_imageresizer_warning {
+background: #FFFFE1; 
+color: #000000; 
+border: 1px solid #CCCFFF; 
+	cursor: pointer;
+}
+
+table.ncode_imageresizer_warning td {
+	font-size: 10px;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+table.ncode_imageresizer_warning td.td1 {
+	padding: 5px;
+}
+
+table.ncode_imageresizer_warning td.td1 {
+	padding: 2px;
+}
+
+tehPARADOX.COM Online Sharing Community<!--
+window.google_analytics_uacct = 'UA-1339782-2'; window.google_analytics_domain_name='.tehparadox.com'; var _gaq = _gaq || []; _gaq.push(['_setDomainName', '.tehparadox.com'], ['_setAccount', 'UA-1339782-2'], ['_setVar', 'usergroup-1-Unregistered / Not Logged In'], ['_trackPageview']); (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();
+//-->
+
+
+
+
+
+
+
+
+
+
+
+
+	Forum
+		
+		Forum Rules
+		  
+		  
+		
+			Register
+		
+		
+		
+			
+			Mark Forums Read
+			
+		
+		
+		
+		
+
+
+
+
+
+var AdBrite_Title_Color = 'FF3733';
+var AdBrite_Text_Color = '000000';
+var AdBrite_Background_Color = 'd2d2d2';
+var AdBrite_Border_Color = 'd2d2d2';
+var AdBrite_URL_Color = 'FF3733';
+try{var AdBrite_Iframe=window.top!=window.self?2:1;var AdBrite_Referrer=document.referrer==''?document.location:document.referrer;AdBrite_Referrer=encodeURIComponent(AdBrite_Referrer);}catch(e){var AdBrite_Iframe='';var AdBrite_Referrer='';}
+document.write(String.fromCharCode(60,83,67,82,73,80,84));document.write(' src="http://ads.adbrite.com/mb/text_group.php?sid=761388&zs=3732385f3930&ifr='+AdBrite_Iframe+'&ref='+AdBrite_Referrer+'" type="text/javascript">');document.write(String.fromCharCode(60,47,83,67,82,73,80,84,62));
+
+
+
+
+
+
+
+
+	
+		
+
+
+
+
+
+
+
+
+
+		
+			
+				 
+				tehPARADOX.COM Online Sharing Community 
+			 
+	tehPARADOX.COM Online Sharing Community Message
+
+
+			     
+	
+
+	Register
+	
+		
+		
+		User Name
+			
+			Remember Me?
+		Password
+			
+			
+
+		
+		
+    
+	
+
+tehPARADOX.COM Online Sharing Community Message
+
+	
+		
+
+		
+			
+			You are not logged in or you do not have permission to access this page. This could be due to one of several reasons:
+
+			You are not logged in. Fill in the form at the bottom of this page and try again.
+				You may not have sufficient privileges to access this page. Are you trying to edit someone else's post, access administrative features or some other privileged system?
+				If you are trying to post, the administrator may have disabled your account, or it may be awaiting activation.
+			Log in
+				User Name:
+				Password:
+				
+						Forgotten Your Password?
+						Remember Me?
+					
+				
+						
+				The administrator may have required you to register before you can view this page.
+			
+
+			
+		
+
+		
+	
+	
+	
+
+
+All times are GMT -7. The time now is 06:12 AM.
+Search Engine Optimization by vBSEODisclaimer:
+  This site does not store any files on its server. All contents are provided by non-affiliated third parties.
+
+
+
+
+
+
+
+
+   
+
+
+
+			-- TPX-- GEN3.7
+	
+	
+	
+		
+			
+				
+				tehPARADOX.COM Online Sharing Community -
+				
+				
+				TOS -
+				
+				
+				
+				
+				Top
+			
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+	// Main vBulletin Javascript Initialization
+	vBulletin_init();
+//-->
+
+
+ 
+
+	
+	Powered by: vBulletin Copyright ©2000 - 2011, Jelsoft Enterprises Ltd.
+	
+ 
+ 
+
+	
+	
+	
+ 
+
+
+
+

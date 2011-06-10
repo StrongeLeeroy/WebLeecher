@@ -1,0 +1,18 @@
+<h1>Le Leecher Results</h1>
+
+<p>
+<% i = 1 %>
+<% while (@threadlist[i][0]!=nil) %>
+  <%= "#{i} : #{@threadlist[i][0]}" %> <br />
+  <% i = i + 1 %>
+<% end %>
+<%= form_for(:search, :url => { :action => 'update'}) do |f| %>
+  <div class="field">
+    <%= f.label "Pick a thread:" %><br />
+    <%= f.text_field :threadchoice %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>
+</p>
