@@ -181,3 +181,12 @@ div.field, div.actions {
   font-size: 12px;
   list-style: square;
 }
+
+#searchesresult {
+  float: left;
+  padding-right: 20px;
+}
+
+#searchesresult2 {
+
+}
