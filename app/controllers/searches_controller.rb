@@ -1,5 +1,6 @@
 require 'mechanize'
 require 'digest'
+require 'uri'
 class SearchesController < ApplicationController
 
 
@@ -29,7 +30,7 @@ class SearchesController < ApplicationController
     page = agent.get("http://tehparadox.com/forum/index.php")
     login_form = agent.page.form_with(:action => 'http://tehparadox.com/forum/login.php?do=login')
     ### Populate the login form ###
-    digest = Digest::MD5.hexdigest(username)
+    digest = Digest::MD5.hexdigest(password)
 
     login_form['vb_login_username'] = username
     login_form['vb_login_password'] = password
@@ -52,8 +53,9 @@ class SearchesController < ApplicationController
       @token = leech.scan(/\"([^.]+)\"/).to_s
     end
     
+    securitytoken = @token
 
-    if @token != "guest"
+    if securitytoken != "guest"
       ### Load the search form ###
       search_form = agent.page.form_with(:action => 'search.php?do=process')
       ### Populate the search form ###
@@ -68,7 +70,7 @@ class SearchesController < ApplicationController
       search_form['childforums'] = child
       search_form['prefixchoice[]'] = prefix
       search_form['s'] = ""
-      search_form['securitytoken'] = @token
+      search_form['securitytoken'] = securitytoken
       search_form['do'] = "process"
       search_form['searchthreadid'] = ""
       ### submit the search form ###
@@ -102,13 +104,13 @@ class SearchesController < ApplicationController
     password = session[:password]
     query = session[:query]
     forumchoice = session[:forumchoice]
-    threadchoice = params[:searches][:threadchoice]
+    threadchoice = params[:search][:threadchoice]
 
     agent = Mechanize.new
     page = agent.get("http://tehparadox.com/forum/index.php")
     login_form = agent.page.form_with(:action => 'http://tehparadox.com/forum/login.php?do=login')
     ### Populate the login form ###
-    digest = Digest::MD5.hexdigest(username)
+    digest = Digest::MD5.hexdigest(password)
 
     login_form['vb_login_username'] = username
     login_form['vb_login_password'] = password
@@ -121,6 +123,18 @@ class SearchesController < ApplicationController
     ### Submit the login form ###
     page = agent.submit login_form
 
+
+    page = agent.get("http://tehparadox.com/forum/search.php")
+    @token = ""
+    ### Load the whole page ###
+    troll = page.parser.xpath('/html').map do |row|    
+      leech = row.text.match(/Sec([^v]+)"/i)
+      leech = leech.to_s
+      ### Trim the string to just the actual token ###
+      @token = leech.scan(/\"([^.]+)\"/).to_s
+    end
+    
+    securitytoken = @token
     ### Load the search form ###
     search_form = agent.page.form_with(:action => 'search.php?do=process')
     ### Populate the search form ###
@@ -135,7 +149,7 @@ class SearchesController < ApplicationController
     search_form['childforums'] = child
     search_form['prefixchoice[]'] = prefix
     search_form['s'] = ""
-    search_form['securitytoken'] = token
+    search_form['securitytoken'] = securitytoken
     search_form['do'] = "process"
     search_form['searchthreadid'] = ""
     ### submit the search form ###
@@ -177,6 +191,7 @@ class SearchesController < ApplicationController
     url = ""
 ### get the url of the selected thread ###
     url = threadlist[optionint][1]
+    url = URI.parse(URI.encode(url))
     page = agent.get(url)
 ### Parse the links from the thread ###
     @linklist = Array.new
