@@ -16,15 +16,21 @@ class SearchesController < ApplicationController
   def create
     username = params[:search][:forumuser]
     password = params[:search][:forumpass]
-    session[:username] = username
-    session[:password] = password
     forumchoice = params[:search][:forumchoice]
     query = params[:search][:forumquery]
-    digest = Digest::MD5.hexdigest(password)
+
+    session[:username] = username
+    session[:password] = password
+    session[:query] = query
+    session[:forumchoice] = forumchoice
+
+    ### Load login form ###
     agent = Mechanize.new
     page = agent.get("http://tehparadox.com/forum/index.php")
     login_form = agent.page.form_with(:action => 'http://tehparadox.com/forum/login.php?do=login')
     ### Populate the login form ###
+    digest = Digest::MD5.hexdigest(username)
+
     login_form['vb_login_username'] = username
     login_form['vb_login_password'] = password
     login_form['vb_login_md5password_utf'] = digest
@@ -37,99 +43,50 @@ class SearchesController < ApplicationController
     page = agent.submit login_form
 
     page = agent.get("http://tehparadox.com/forum/search.php")
-    @token=""
-      ### Load the whole page ###
-      troll = page.parser.xpath('/html').map do |row|
-        test = row.text.to_s
-        if test =~ /SECURITY/
-            File.open('temp.txt','w') do |f|
-              f.puts test
-            end
-            File.open('temp.txt', 'r') do |f|
-              while line = f.gets
-                if line =~ /SECURITY/
-			            @token = line
-                end
-              end
-            end
-        end     
+    @token = ""
+    ### Load the whole page ###
+    troll = page.parser.xpath('/html').map do |row|    
+      leech = row.text.match(/Sec([^v]+)"/i)
+      leech = leech.to_s
       ### Trim the string to just the actual token ###
-	    @token = @token.scan(/\"([^.]+)\"/).to_s
-      end
-
+      @token = leech.scan(/\"([^.]+)\"/).to_s
+    end
     
-    securitytoken = @token
 
-    if securitytoken != "guest"
+    if @token != "guest"
       ### Load the search form ###
       search_form = agent.page.form_with(:action => 'search.php?do=process')
       ### Populate the search form ###
-      childforums2 = 1
-      prefixchoice2 = "MU"
-
+      child = 1
+      prefix = "MU"
+      #system('cls')
 
       ### Complete search form with data and token ###
       search_form['query'] = query
       search_form['titleonly'] = 1
       search_form['forumchoice[]'] = forumchoice
-      search_form['childforums'] = childforums2
-      search_form['prefixchoice[]'] = prefixchoice2
+      search_form['childforums'] = child
+      search_form['prefixchoice[]'] = prefix
       search_form['s'] = ""
-      search_form['securitytoken'] = securitytoken
+      search_form['securitytoken'] = @token
       search_form['do'] = "process"
       search_form['searchthreadid'] = ""
       ### submit the search form ###
-      page=agent.submit search_form
-      ### parse all the threads into a temporary txt ###
-      threadmen = page.parser.xpath('//*[@id="threadslist"]').map do |row|
-	      if row.text =~ /[MU]/
-		      File.open('temp.txt', 'w') do |f|
-			      f.puts row
-		      end
-	      end
-      end
-
-      ### Make sure that "threads.txt" exists ###
-      File.open("threads.txt",'w') do |nothing|
-      end
-      ### Get the thread titles from the file ###
-      File.open('temp.txt', 'r') do |f2|
-        while line = f2.gets
-          if line =~ /thread_title/
-              File.open('threads.txt', 'a') do |threads|
-                threads.puts line
-              end
-          end
-        end
-      end
+      page = agent.submit search_form
 
       ### Create and initialize the array ###
-      i = 1
+      i=1
       @threadlist = arraymen(50,50)
       @threadlist[0][0] = nil
 
-      ### Fill the array with the titles and links from the file ###
-      File.open("threads.txt", 'r') do |threads|
-        while line = threads.gets
-	        if @OS==1 ## WINDOWS ##
-		        title=line.scan(/\>([^*]+)\</).to_s
-		        link=line.scan(/"f([^.]+)\?/).to_s
-		        var=title.length - 6
-		        title=title[3,var]
-		        var=link.length - 6
-		        link=link[3,var]
-          else
-		        title=line.scan(/\>([^*]+)\</)
-		        link=line.scan(/"f([^.]+)\?/)
-          end
-		      @threadlist[i][0]=title # scans for thread title
-		      @threadlist[i][1]="http://tehparadox.com/forum/f#{link}"
-	        i = i + 1
+      page.links.each do |link|
+        if link.text.match(/#{session[:query]}/i)
+        ### Fill the array with the titles and links from the file ###
+          @threadlist[i][0] = link.text # scans for thread title
+          @threadlist[i][1] = "http://tehparadox.com/forum/#{link.href}"
+          i=i+1
         end
       end
-
-
-      @searchquery = { :username => username, :password => password, :forumchoice => forumchoice, :query => query }
       render 'update'
     else
       flash.now[:error] = "Login data was incorrect."
@@ -143,11 +100,16 @@ class SearchesController < ApplicationController
   def update
     username = session[:username]
     password = session[:password]
-    digest = Digest::MD5.hexdigest(password)
+    query = session[:query]
+    forumchoice = session[:forumchoice]
+    threadchoice = params[:searches][:threadchoice]
+
     agent = Mechanize.new
     page = agent.get("http://tehparadox.com/forum/index.php")
     login_form = agent.page.form_with(:action => 'http://tehparadox.com/forum/login.php?do=login')
     ### Populate the login form ###
+    digest = Digest::MD5.hexdigest(username)
+
     login_form['vb_login_username'] = username
     login_form['vb_login_password'] = password
     login_form['vb_login_md5password_utf'] = digest
@@ -159,69 +121,77 @@ class SearchesController < ApplicationController
     ### Submit the login form ###
     page = agent.submit login_form
 
+    ### Load the search form ###
+    search_form = agent.page.form_with(:action => 'search.php?do=process')
+    ### Populate the search form ###
+    child = 1
+    prefix = "MU"
+    #system('cls')
+
+    ### Complete search form with data and token ###
+    search_form['query'] = query
+    search_form['titleonly'] = 1
+    search_form['forumchoice[]'] = forumchoice
+    search_form['childforums'] = child
+    search_form['prefixchoice[]'] = prefix
+    search_form['s'] = ""
+    search_form['securitytoken'] = token
+    search_form['do'] = "process"
+    search_form['searchthreadid'] = ""
+    ### submit the search form ###
+    page = agent.submit search_form
+
     ### Create and initialize the array ###
-    i = 1
+    i=1
+    threadlist = arraymen(50,50)
+    threadlist[0][0]=nil
+
+    page.links.each do |link|
+      if link.text.match(/#{session[:query]}/i)
+      ### Fill the array with the titles and links from the file ###
+        threadlist[i][0] = link.text # scans for thread title
+        threadlist[i][1] = "http://tehparadox.com/forum/#{link.href}"
+        i=i+1
+      end
+    end
+
+    ### Create and initialize the array ###
+    i=1
     threadlist = arraymen(50,50)
     threadlist[0][0] = nil
 
-    ### Fill the array with the titles and links from the file ###
-    File.open("threads.txt", 'r') do |threads|
-      while line = threads.gets
-		    title=line.scan(/\>([^*]+)\</)
-		    link=line.scan(/"f([^.]+)\?/)
-		    threadlist[i][0]=title # scans for thread title
-		    threadlist[i][1]="http://tehparadox.com/forum/f#{link}"
-	      i = i + 1
+    page.links.each do |link|
+      if link.text.match(/#{session[:query]}/i)
+      ### Fill the array with the titles and links from the file ###
+        threadlist[i][0] = link.text # scans for thread title
+        threadlist[i][1] = "http://tehparadox.com/forum/#{link.href}"
+        i=i+1
       end
     end
-    threadchoice = params[:search][:threadchoice]
-    
-
-    optionint = 0
-    optionint = threadchoice.to_i
-
-    ### get the url of the selected thread ###
-    url = threadlist[optionint][1]
-    page = agent.get(url)
 
     ### Parse the links from the thread ###
 
-    postBody = page.parser.xpath('/html/body/div[2]/div[3]/div[2]/div/div/table/tr[2]').map do |row|
-
-	    postBodyRow=row.text.to_s
-
-	    if postBodyRow =~ /megaupload/
-		    File.open('temp.txt', 'w') do |f|
-		        f.puts row.text
-		    end
-		    break
-	    end
-
-    end
-    ### Clean up old Links.txt and insert new links into links.txt ###
-    File.open('links.txt', 'w') do |nothing|
-    end
-    File.delete('links.txt')
-    
-    File.open('temp.txt', 'r') do |f2|
-      while line = f2.gets
-        if line =~ /megaupload/
-            File.open('links.txt', 'a') do |links|
-              links.puts line    
-            end
-        end
-      end
-    end
-    i = 0
+    option = nil
+    optionint = 0
+    optionint = threadchoice.to_i
+    url = ""
+### get the url of the selected thread ###
+    url = threadlist[optionint][1]
+    page = agent.get(url)
+### Parse the links from the thread ###
     @linklist = Array.new
-    
-    File.open('links.txt', 'r') do |links2|
-      while line = links2.gets
-        @linklist << line
-        i = i + 1
+    postBody = page.parser.xpath('/html/body/div[2]/div[3]/div[2]/div/div/table/tr[2]/td[2]/div').map do |row|
+      strong = row.to_s
+      strong = strong.split(" ")
+      i=0
+      while (strong[i]!=nil)
+        if strong[i] =~ /megaupload/
+           line = strong[i].match(/\h([^<]+)/)
+           @linklist << line
+        end
+        i=i+1
       end
     end
-
 
     render 'show'
 
