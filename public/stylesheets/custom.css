@@ -206,6 +206,12 @@ div.field, div.actions {
   font-size:70%;
 }
 
+.smaller2 {
+  font-size:70%;
+  margin: -5px -5px -5px -5px;
+  float: right;
+}
+
 .headerdiv {
   position: center;
   text-align: center;
