@@ -190,6 +190,25 @@ div.field, div.actions {
 #searchnewleft {
   float: left;
   padding-right: 60px;
+  padding-left: 10%;
+}
+
+.floater {
+  float: none;
+}
+
+.bigger {
+  font-size:250%;
+  padding-right: 5px;
+}
+
+.smaller {
+  font-size:70%;
+}
+
+.headerdiv {
+  position: center;
+  text-align: center;
 }
 
 .forumchoice {
@@ -217,4 +236,4 @@ div.field, div.actions {
   overflow: auto;
   background: #fff url(/img/cut.gif) no-repeat top right;
 }
-  
+

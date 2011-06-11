@@ -1,34 +1,32 @@
-<h1>Le Leecher</h1>
+<div class = "headerdiv"><p><span class="bigger">WebLeecher</span> <span class="smaller">ALPHA v0.3.1</span></p></div>
 
 <%= form_for(:search, :url => searches_path) do |f| %>
   <div id="searchnewleft">
     <div class="field">
-      <%= f.label "Username" %><br />
+      <%= f.label "Username:" %><br />
       <%= f.text_field :forumuser %>
     </div>
 
     <div class="field">
-      <%= f.label "Password" %><br />
+      <%= f.label "Password:" %><br />
       <%= f.password_field :forumpass %>
     </div>
 
     <div class="field">
-      <%= f.label "Search Query" %><br />
+      <%= f.label "Search Query:" %><br />
       <%= f.text_field :forumquery %>
     </div>
 
-    <div class="field">
-      <%= f.label "Search Query" %><br />
-      <%= f.text_field :forumchoice %>
-    </div>
-
     <div class="actions">
-      <%= f.submit "LEECH!" %>
+      <%= f.submit "Leech!" %>
+      <input style="float: right;"type="reset" value="Reset all fields">
     </div>
+    
   </div>
 
-  <div>
-    <%= select_tag :forumchddoice, options_for_select([
+  <div class ="field">
+    <%= f.label "Choose a category:" %><br />
+    <%= select_tag :forumchoice, options_for_select([
         ["WHOLE SITE", "6"], 
         [" Applications", "51"],[" ---- 0Day Releases", "112"],
         [" Games", "43"], [" ---- Console Games", "76"],   
@@ -41,6 +39,7 @@
         [" Ebooks & Tutorials", "58"], [" Web/Design Resources", "75"]]), 
         :class => "forumchoice", :multiple => true %>
   </div>
+
 
 
 <% end %>

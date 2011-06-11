@@ -14,10 +14,15 @@ class SearchesController < ApplicationController
     @title = "Le Leecher"
   end
 
+  def reset
+    @title = "Le Leecher"
+    render 'new'
+  end
+
   def create
     username = params[:search][:forumuser]
     password = params[:search][:forumpass]
-    forumchoice = params[:search][:forumchoice]
+    forumchoice = params[:forumchoice]
     query = params[:search][:forumquery]
 
     session[:username] = username
@@ -189,11 +194,11 @@ class SearchesController < ApplicationController
     optionint = 0
     optionint = threadchoice.to_i
     url = ""
-### get the url of the selected thread ###
+    ### get the url of the selected thread ###
     url = threadlist[optionint][1]
-    url = URI.parse(URI.encode(url))
+    url = URI.encode(url)
     page = agent.get(url)
-### Parse the links from the thread ###
+    ### Parse the links from the thread ###
     @linklist = Array.new
     postBody = page.parser.xpath('/html/body/div[2]/div[3]/div[2]/div/div/table/tr[2]/td[2]/div').map do |row|
       strong = row.to_s
