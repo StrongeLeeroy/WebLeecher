@@ -1,5 +1,7 @@
-#Sample_App for Rails Tutorial
+#WebLeecher ALPHA v0.3.0
 
-This is a sample app created for the [Rails Tutorial](ruby.railstutorial.org).
+New Ruby scripts by [Revy](mailto:revy@lethalia.net) in place.
 
-Have a nice day.
+App is about 80% functional, only working while in localhost.
+
+[MU] link extraction achieved in almost every case.
