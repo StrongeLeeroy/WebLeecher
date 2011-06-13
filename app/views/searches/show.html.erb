@@ -1,14 +1,16 @@
 <div><span class="bigger">Results</span></div>
 
 
-
+<div style = "margin-bottom: -15px;">
+  <%= clippy(@links, bgcolor='#E6E6E6') %>
+</div>
 <div class="code-box">
-  <% i = 0 %>
+  <% i = 0 %> 
   <% while (@linklist[i]!=nil) %>
     <%= "#{@linklist[i]}" %> <br />
     <% i = i + 1 %>
   <% end %>
 </div>
+
+
 <span class="smaller2">WebLeecher ALPHA v0.3.1</span>
-
-

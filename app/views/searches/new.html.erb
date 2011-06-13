@@ -19,13 +19,13 @@
 
     <div class="actions">
       <%= f.submit "Leech!" %>
-      <input style="float: right;"type="reset" value="Reset all fields">
+      <input type="reset" value="Reset all fields">
     </div>
-    
+
   </div>
 
   <div class ="field">
-    <%= f.label "Choose a category:" %><br />
+    <p id = "troll2">Category:</p>
     <%= select_tag :forumchoice, options_for_select([
         ["WHOLE SITE", "6"], 
         [" Applications", "51"],[" ---- 0Day Releases", "112"],
@@ -38,8 +38,24 @@
         [" ---- Crossovers", "87"], 
         [" Ebooks & Tutorials", "58"], [" Web/Design Resources", "75"]]), 
         :class => "forumchoice", :multiple => true %>
+    <div>
+    <span id = "troll">Prefix:</span>
+    <%= select_tag :prefixchoice, options_for_select([
+        ["[MU] Megaupload", "MU"], ["[RS] Rapidshare", "RS"], ["[HF] Hotfile", "HF"],
+        ["[x7] x7", "x7"], ["[NL] Netload", "NL"], ["[MS] Megashares", "MS"], ["[FSn] Filesonic", "SM"], 
+        ["[MF] Mediafire", "MF"], ["[FF] Filefactory", "FF"], ["[DL] Duckload", "DL"], 
+        ["[FSrv] Fileserve", "FS"], ["[UL] Uploading", "UL"], ["[DF] Depositfiles", "DF"], ["[FTP]", "FTP"], 
+        ["[Other]", "Other"], ["[MULTI]", "Multi"], ["(any prefix)", ""], ["(no prefix)", "-1"]]), 
+        :class => "prefixchoice", :multiple => false %>
+    
+    </div>
   </div>
 
-
+  <!-- To be implemented
+  <div id = "childforums">
+    <%= f.check_box(:childforums) %>
+    <%= f.label("Search in child forums.") %>
+  </div>
+  -->
 
 <% end %>

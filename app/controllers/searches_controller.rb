@@ -20,11 +20,13 @@ class SearchesController < ApplicationController
   end
 
   def create
+    prefix = params[:search][:prefixchoice]
     username = params[:search][:forumuser]
     password = params[:search][:forumpass]
     forumchoice = params[:forumchoice]
     query = params[:search][:forumquery]
 
+    session[:prefixchoice] = prefix
     session[:username] = username
     session[:password] = password
     session[:query] = query
@@ -65,7 +67,6 @@ class SearchesController < ApplicationController
       search_form = agent.page.form_with(:action => 'search.php?do=process')
       ### Populate the search form ###
       child = 1
-      prefix = "MU"
       #system('cls')
 
       ### Complete search form with data and token ###
@@ -113,6 +114,7 @@ class SearchesController < ApplicationController
       query = session[:query]
       forumchoice = session[:forumchoice]
       threadchoice = params[:search][:threadchoice]
+      prefix = session[:prefixchoice]
 
       agent = Mechanize.new
       page = agent.get("http://tehparadox.com/forum/index.php")
@@ -147,7 +149,6 @@ class SearchesController < ApplicationController
       search_form = agent.page.form_with(:action => 'search.php?do=process')
       ### Populate the search form ###
       child = 1
-      prefix = "MU"
       #system('cls')
 
       ### Complete search form with data and token ###
@@ -199,10 +200,11 @@ class SearchesController < ApplicationController
       url = ""
       ### get the url of the selected thread ###
       url = threadlist[optionint][1]
-      url = URI.encode(url)
+      url = URI.parse(URI.encode(url))
       page = agent.get(url)
       ### Parse the links from the thread ###
       @linklist = Array.new
+      @links = Array.new
       postBody = page.parser.xpath('/html/body/div[2]/div[3]/div[2]/div/div/table/tr[2]/td[2]/div').map do |row|
         strong = row.to_s
         strong = strong.split(" ")
@@ -211,11 +213,13 @@ class SearchesController < ApplicationController
           if strong[i] =~ /megaupload/
              line = strong[i].match(/\h([^<]+)/)
              @linklist << line
+             @links << line
+             @links << " "
           end
           i=i+1
         end
       end
-
+      @links = @links.to_s
       render 'show'
     end
   end

@@ -4,10 +4,12 @@
 
 body {
   background: #313131;
+  padding-top: 40px;
 }
 
 header {
   padding-top: 20px;
+  padding-bottom: 15px;
 }
 
 header img {
@@ -20,6 +22,7 @@ section {
   font-size: 120%;
   padding: 20px;
   background: #E6E6E6;
+  padding-top: 20px;
 }
 
 section h1 {
@@ -29,17 +32,17 @@ section h1 {
 /* Links */
 
 a {
-  color: #313131;
+  color: #700000 ;
   text-decoration: none;
 }
 
 a:hover {
-  color: #313131;
+  color: #700000 ;
   text-decoration: underline;
 }
 
 a:visited {
-  color: #313131;
+  color: #700000 ;
 }
 
 /* Navigation */
@@ -218,8 +221,10 @@ div.field, div.actions {
 }
 
 .forumchoice {
-  width: 200px;
+  width: 230px;
   height: 250px;
+  padding-top: 5px;
+  padding-left: 5px;
 }
 
 #searchesresult2 {
@@ -242,4 +247,57 @@ div.field, div.actions {
   overflow: auto;
   background: #fff url(/img/cut.gif) no-repeat top right;
 }
+
+#navlist
+{
+padding-left: 0;
+margin-left: 0;
+width: 200px;
+
+}
+
+#navlist li
+{
+list-style: none;
+margin: 0;
+padding: 0.25em;
+border-bottom: 1px solid gray;
+}
+
+#navlist li a { text-decoration: none;}
+
+#prefixchoice {
+  font-size: 80%;
+  margin-left: 58%;
+
+}
+#childforums {
+  font-size: 80%;
+  padding-left: 56%;
+  margin-top: -17px;
+}
+
+#troll{
+  padding-left:58%;
+  font-size: 80%;
+}
+
+#troll2{
+  font-size: 80%;
+  padding-left: 17px;
+  margin-bottom: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
