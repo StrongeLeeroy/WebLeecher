@@ -1,4 +1,4 @@
-#WebLeecher ALPHA v0.3.0
+#WebLeecher ALPHA v0.3
 
 New Ruby scripts by [Revy](mailto:revy@lethalia.net) in place.
 
@@ -9,9 +9,21 @@ App is about 80% functional, only working while in localhost.
 
 ##Alpha Releases:
 
+*   v0.3.2 Alpha (Beta candidate)
+    -   Users may now choose the thread prefix through a dropdown select_tag.
+    -   A "Copy to clipboard!" button has been added to the result show.html.erb page
+	for convenience.
+    -   Forum category picker now works the way it should (no multiple choice functionality yet).
+    -   Some minor styling.
+    -   Added this README to the about.html.erb file.
+    -   Will release BETA as soon as a few minor bugs are gone.
+
+
 *   v0.3.1 Alpha (Beta candidate)
     -   Simplified the forum category picker using a select_tag
     -   Fixed the bad URI bug.
+    -   A "Reset all fields" button has been added to the initial form in new.html.erb for
+	 convenience.
     -   BETA Candidate.
 
 *   v0.3.0 Alpha

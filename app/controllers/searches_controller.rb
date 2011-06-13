@@ -20,7 +20,7 @@ class SearchesController < ApplicationController
   end
 
   def create
-    prefix = params[:search][:prefixchoice]
+    prefix = params[:prefixchoice]
     username = params[:search][:forumuser]
     password = params[:search][:forumpass]
     forumchoice = params[:forumchoice]
@@ -200,7 +200,7 @@ class SearchesController < ApplicationController
       url = ""
       ### get the url of the selected thread ###
       url = threadlist[optionint][1]
-      url = URI.parse(URI.encode(url))
+      url = URI.encode(url)
       page = agent.get(url)
       ### Parse the links from the thread ###
       @linklist = Array.new
