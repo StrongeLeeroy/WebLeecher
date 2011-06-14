@@ -1,6 +1,7 @@
 #WebLeecher ALPHA v0.3
 
 The Ruby code behind the App is being developed by [Revy](mailto:revy@lethalia.net).
+
 The Rails port and web interface are being worked out by [Leeroy](mailto:leeroy@lethalia.net).
 
 
