@@ -2,7 +2,13 @@ require 'mechanize'
 require 'digest'
 require 'uri'
 module SearchesHelper
-  
+
+  def arraymen(width, height)
+      a = Array.new(width)
+      a.map! { Array.new(height) }
+      return a
+  end
+
   def dologin(username, password, digest, agent)
     page = agent.get("http://tehparadox.com/forum/index.php")
     login_form = agent.page.form_with(:action => 'http://tehparadox.com/forum/login.php?do=login')
@@ -51,6 +57,17 @@ module SearchesHelper
       end
     end
     return @threadlist
+  end
+
+  def gettoken(page)
+      @token = ""
+      ### Load the whole page ###
+      troll = page.parser.xpath('/html').map do |row|    
+        leech = row.text.match(/Sec([^v]+)"/i)
+        leech = leech.to_s
+        ### Trim the string to just the actual token ###
+        @token = leech.scan(/\"([^.]+)\"/).to_s
+      end
   end
 
   def clippy(text, bgcolor='#FFFFFF')

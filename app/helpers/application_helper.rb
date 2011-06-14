@@ -1,5 +1,9 @@
 module ApplicationHelper
   
+  def version
+    "WebLeecher BETA v0.4.0"
+  end
+
   def logo
     image_tag("logo.png", :alt => "Sample App", :class => "round")
   end
@@ -14,7 +18,4 @@ module ApplicationHelper
     end
   end
 
-
-
-  
 end

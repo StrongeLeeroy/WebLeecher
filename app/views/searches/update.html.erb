@@ -1,11 +1,11 @@
 <div><p><span class="bigger">Pick a thread</span></p></div>
 
-<p>Pick a thread:</p>
-
 <%= form_for(:search, :url => { :action => 'update'}) do |f| %>
   <% i = 1 %>
+  <% default = true %>
   <% while (@threadlist[i][0]!=nil) %>
-    <%= f.radio_button(:threadchoice, "#{i}") %>
+    <%= f.radio_button(:threadchoice, "#{@threadlist[i][1]}", { :checked => default }) %>
+    <% default = false %>
     <%= f.label(:threadchoice, "#{@threadlist[i][0]}") %> <br />
     <% i = i + 1 %>
   <% end %>
@@ -14,5 +14,4 @@
   </div>
 <% end %>
 
-
-<span class="smaller2">WebLeecher ALPHA v0.3.3</span>
+<span class="smaller2"><%= version %></span>
