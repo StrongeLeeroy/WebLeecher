@@ -1,4 +1,4 @@
-#WebLeecher ALPHA v0.3
+#WebLeecher BETA v0.4
 
 The Ruby code behind the App is being developed by [Revy](mailto:revy@lethalia.net).
 
@@ -6,17 +6,28 @@ The Rails port and web interface are being worked out by [Leeroy](mailto:leeroy@
 
 
 
+##Beta Releases:
+
+*   v0.4.0 Beta
+    -   Bad URI code was being cause by the 35 second limit between searches. To avoid this, the
+        thread links have been added to the values in the update.html.erb so that two forum searches
+        are not performed per actual search, improving performance at the same time.
+    -   The first thread in the update.html.erb view is now selected by default to avoid server side
+        errors.
+    -   Minor styling.
+
 ##Alpha Releases:
 
-*   v0.3.3 Alpha (Beta candidate) - NOT FINISHED
+*   v0.3.3 Alpha (Beta candidate)
     -   The thread selection page now lets the user check a "radio button" rather than having to
-	type the thread number in a text box.
+	    type the thread number in a text box.
+    -   Almost done migrating code chunks to the searches_helper file.
 
 
 *   v0.3.2 Alpha (Beta candidate)
     -   Users may now choose the thread prefix through a dropdown select_tag.
     -   A "Copy to clipboard!" button has been added to the result show.html.erb page
-	for convenience.
+	    for convenience.
     -   Forum category picker now works the way it should (no multiple choice functionality yet).
     -   Some minor styling.
     -   Added this README to the about.html.erb file.
@@ -27,7 +38,7 @@ The Rails port and web interface are being worked out by [Leeroy](mailto:leeroy@
     -   Simplified the forum category picker using a select_tag
     -   Fixed the bad URI bug.
     -   A "Reset all fields" button has been added to the initial form in new.html.erb for
-	convenience.
+	    convenience.
     -   BETA Candidate.
 
 *   v0.3.0 Alpha
