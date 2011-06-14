@@ -7,7 +7,7 @@ The Rails port and web interface are being worked out by [Leeroy](mailto:leeroy@
 
 ##Alpha Releases:
 
-*   v0.3.3 Alpha (Beta candidate)
+*   v0.3.3 Alpha (Beta candidate) - NOT FINISHED
     -   The thread selection page now lets the user check a "radio button" rather than having to
 	type the thread number in a text box.
 
