@@ -1,4 +1,58 @@
+require 'mechanize'
+require 'digest'
+require 'uri'
 module SearchesHelper
+  
+  def dologin(username, password, digest, agent)
+    page = agent.get("http://tehparadox.com/forum/index.php")
+    login_form = agent.page.form_with(:action => 'http://tehparadox.com/forum/login.php?do=login')
+    login_form['vb_login_username'] = username
+    login_form['vb_login_password'] = password
+    login_form['vb_login_md5password_utf'] = digest
+    login_form['vb_login_md5password'] = digest
+    login_form['s'] = ""
+    login_form['securitytoken'] = "guest"
+    login_form['do'] = "login"
+    login_form['cookieuser'] = "1"
+    ### Submit the login form ###
+    page = agent.submit login_form
+  end
+
+  def dosearch(query, forumchoice, prefixchoice, securitytoken, agent, page)
+    ### Load the search form ###
+    search_form = agent.page.form_with(:action => 'search.php?do=process')
+    ### Populate the search form ###
+    child = 1
+    #system('cls')
+
+    ### Complete search form with data and token ###
+    search_form['query'] = query
+    search_form['titleonly'] = 1
+    search_form['forumchoice[]'] = forumchoice
+    search_form['childforums'] = child
+    search_form['prefixchoice[]'] = prefixchoice
+    search_form['s'] = ""
+    search_form['securitytoken'] = securitytoken
+    search_form['do'] = "process"
+    search_form['searchthreadid'] = ""
+    ### submit the search form ###
+    page = agent.submit search_form
+    
+    i=1
+    @threadlist = arraymen(50,50)
+    @threadlist[0][0] = nil
+
+    page.links.each do |link|
+      if link.text.match(/#{query}/i)
+      ### Fill the array with the titles and links from the file ###
+        @threadlist[i][0] = link.text # scans for thread title
+        @threadlist[i][1] = "http://tehparadox.com/forum/#{link.href}"
+        i=i+1
+      end
+    end
+    return @threadlist
+  end
+
   def clippy(text, bgcolor='#FFFFFF')
     <<-EOF.html_safe
       <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"

@@ -1,5 +1,6 @@
 require 'mechanize'
 require 'digest'
+require 'cgi'
 require 'uri'
 class SearchesController < ApplicationController
 
@@ -20,35 +21,19 @@ class SearchesController < ApplicationController
   end
 
   def create
-    prefix = params[:prefixchoice]
-    username = params[:search][:forumuser]
-    password = params[:search][:forumpass]
-    forumchoice = params[:forumchoice]
-    query = params[:search][:forumquery]
+    
+    session[:username] = params[:search][:forumuser]
+    session[:password] = params[:search][:forumpass]
+    session[:query] = params[:search][:forumquery]
+    session[:forumchoice] = params[:forumchoice]
+    session[:prefixchoice] = params[:prefixchoice]
 
-    session[:prefixchoice] = prefix
-    session[:username] = username
-    session[:password] = password
-    session[:query] = query
-    session[:forumchoice] = forumchoice
-
-    ### Load login form ###
+    session[:digest] = Digest::MD5.hexdigest(session[:password])
     agent = Mechanize.new
-    page = agent.get("http://tehparadox.com/forum/index.php")
-    login_form = agent.page.form_with(:action => 'http://tehparadox.com/forum/login.php?do=login')
+    ### Load login form ###
+    
     ### Populate the login form ###
-    digest = Digest::MD5.hexdigest(password)
-
-    login_form['vb_login_username'] = username
-    login_form['vb_login_password'] = password
-    login_form['vb_login_md5password_utf'] = digest
-    login_form['vb_login_md5password'] = digest
-    login_form['s'] = ""
-    login_form['securitytoken'] = "guest"
-    login_form['do'] = "login"
-    login_form['cookieuser'] = "1"
-    ### Submit the login form ###
-    page = agent.submit login_form
+    dologin(session[:username], session[:password], session[:digest], agent)
 
     page = agent.get("http://tehparadox.com/forum/search.php")
     @token = ""
@@ -63,6 +48,8 @@ class SearchesController < ApplicationController
     securitytoken = @token
 
     if securitytoken != "guest"
+      
+      dosearch(session[:query], session[:forumchoice], session[:prefixchoice], securitytoken, agent, page)
       ### Load the search form ###
       search_form = agent.page.form_with(:action => 'search.php?do=process')
       ### Populate the search form ###
@@ -70,18 +57,18 @@ class SearchesController < ApplicationController
       #system('cls')
 
       ### Complete search form with data and token ###
-      search_form['query'] = query
+      search_form['query'] = session[:query]
       search_form['titleonly'] = 1
-      search_form['forumchoice[]'] = forumchoice
+      search_form['forumchoice[]'] = session[:forumchoice]
       search_form['childforums'] = child
-      search_form['prefixchoice[]'] = prefix
+      search_form['prefixchoice[]'] = session[:prefixchoice]
       search_form['s'] = ""
       search_form['securitytoken'] = securitytoken
       search_form['do'] = "process"
       search_form['searchthreadid'] = ""
       ### submit the search form ###
       page = agent.submit search_form
-
+      return page
       ### Create and initialize the array ###
       i=1
       @threadlist = arraymen(50,50)
@@ -106,33 +93,12 @@ class SearchesController < ApplicationController
 
 
   def update
-    if session[:username] == nil
+    if session[:username].nil?
       redirect_to 'new'
     else
-      username = session[:username]
-      password = session[:password]
-      query = session[:query]
-      forumchoice = session[:forumchoice]
-      threadchoice = params[:search][:threadchoice]
-      prefix = session[:prefixchoice]
-
       agent = Mechanize.new
-      page = agent.get("http://tehparadox.com/forum/index.php")
-      login_form = agent.page.form_with(:action => 'http://tehparadox.com/forum/login.php?do=login')
-      ### Populate the login form ###
-      digest = Digest::MD5.hexdigest(password)
-
-      login_form['vb_login_username'] = username
-      login_form['vb_login_password'] = password
-      login_form['vb_login_md5password_utf'] = digest
-      login_form['vb_login_md5password'] = digest
-      login_form['s'] = ""
-      login_form['securitytoken'] = "guest"
-      login_form['do'] = "login"
-      login_form['cookieuser'] = "1"
-      ### Submit the login form ###
-      page = agent.submit login_form
-
+      
+      dologin(session[:username], session[:password], session[:digest], agent)
 
       page = agent.get("http://tehparadox.com/forum/search.php")
       @token = ""
@@ -152,11 +118,11 @@ class SearchesController < ApplicationController
       #system('cls')
 
       ### Complete search form with data and token ###
-      search_form['query'] = query
+      search_form['query'] = session[:query]
       search_form['titleonly'] = 1
-      search_form['forumchoice[]'] = forumchoice
+      search_form['forumchoice[]'] = session[:forumchoice]
       search_form['childforums'] = child
-      search_form['prefixchoice[]'] = prefix
+      search_form['prefixchoice[]'] = session[:prefixchoice]
       search_form['s'] = ""
       search_form['securitytoken'] = securitytoken
       search_form['do'] = "process"
@@ -196,11 +162,11 @@ class SearchesController < ApplicationController
 
       option = nil
       optionint = 0
-      optionint = threadchoice.to_i
+      optionint = session[:threadchoice].to_i
       url = ""
       ### get the url of the selected thread ###
       url = threadlist[optionint][1]
-      url = URI.encode(url)
+      url = URI.parse(URI.encode(url))
       page = agent.get(url)
       ### Parse the links from the thread ###
       @linklist = Array.new
