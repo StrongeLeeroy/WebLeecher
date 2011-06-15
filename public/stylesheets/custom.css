@@ -214,6 +214,11 @@ div.field, div.actions {
   margin: -5px -5px -5px -5px;
   float: right;
 }
+.smaller3 {
+  font-size:70%;
+  float: right;
+  padding-right: 96px;
+}
 
 .headerdiv {
   position: center;
@@ -268,18 +273,15 @@ border-bottom: 1px solid gray;
 
 #prefixchoice {
   font-size: 80%;
-  margin-left: 58%;
-
 }
 #childforums {
   font-size: 80%;
   padding-left: 56%;
-  margin-top: -17px;
 }
 
 #troll{
-  padding-left:58%;
-  font-size: 80%;
+    margin-bottom: 0px;
+    font-weight: bold;
 }
 
 #troll2{
@@ -288,16 +290,20 @@ border-bottom: 1px solid gray;
   margin-bottom: 0px;
 }
 
+#Leech{
 
+  padding-top:20px;
+  margin-left: 40%;
+  margin-right: 50%;
+}
 
+#LeechButton{
+  height:45px;
+  width:102px;
+  font-size: 130%;
+  font-weight: bold;
+}
 
-
-
-
-
-
-
-
-
-
-
+#ResetButton{
+  width:102px;
+}

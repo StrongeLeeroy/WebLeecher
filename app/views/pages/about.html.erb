@@ -4,51 +4,87 @@
     <p>Additional information, version changelog and project status can be found in our <a href = "https://github.com/StrongeLeeroy/WebLeecher">Github Repository</a>.</p>
 
 
-  <ul style = "list-style: none;">
-<li>
-     v0.3.2 Alpha (Beta candidate)
-  <ul style = "list-style: square; padding-bottom:10px;">
-    <li>   Users may now choose the thread prefix through a dropdown select_tag.</li>
-    <li>   A "Copy to clipboard!" button has been added to the result show.html.erb page
-	          for convenience.</li>
-    <li>   Forum category picker now works the way it should (no multiple choice functionality yet).</li>
-    <li>   Some minor styling.</li>
-    <li>   Will release BETA as soon as a few minor bugs are gone.</li>
-  </ul>
-</li>
-<li>
-     v0.3.1 Alpha (Beta candidate)
-  <ul style = "list-style: square; padding-bottom:10px;">
-    <li>   Simplified the forum category picker using a select_tag.</li>
-    <li>   Fixed the bad URI bug.</li>
-    <li>   A "Reset all fields" button has been added to the initial form in new.html.erb for
-	          convenience.</li>
-    <li>-   BETA Candidate.</li>
-  </ul>
-</li>
-<li>
-     v0.3.0 Alpha
-  <ul style = "list-style: square; padding-bottom:10px;">
-    <li>   Reworked the whole parsing code so that the app is not dependant of .txt files.</li>
-    <li>   Major interface changes.</li>
-    <li>   Parsed links now are presented inside a "code-box" for simplified selecting.</li>
-  </ul>
-</li>
-<li>
-     v0.2.0 Alpha
-  <ul style = "list-style: square; padding-bottom:10px;">
-    <li>   Sessions are now being used to avoid having to input login data twice.</li>
-    <li>   Links are now correctly parsed and written in the show.html.erb view.	</li>
-    <li>   Mostly functional, still getting errors when HREFs contains special characters (bad URI).</li>
-  </ul>
-</li>
-<li>
-     v0.1.0 Alpha
-  <ul style = "list-style: square; padding-bottom:10px;">
-    <li>   Initial ALPHA release.</li>
-    <li>   Threadlist is correctly parsed and written to update.tml.erb.</li>
-    <li>   Link are still not being correctly parsed. Possibly a problem with HTMLs staticness.</li>
-  </ul>
-</li>
+<p style = "font-weight: bold; font-size:110%; text-align: center;">BETA Releases</p>
+
+<ul style = "list-style: none;">
+  <li>
+       v0.4.1 Alpha
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   Initial Search submit form (new.html.erb) has been redesigned for a easier and more intuitive design.</li>
+      <li>   A link to the origin thread has been added to the Results page (show.html.erb) for convenience (ex: To check if there is a password to the file).</li>
+      <li>   About page has been updated and styled.</li>
+      <li>   Minor styling (font styling for the most part).</li>
+    </ul>
+  </li>
+  <li>
+       v0.4.0 Alpha
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   Bad URI code was being cause by the 35 second limit between searches. To avoid this, the
+             thread links have been added to the values in the update.html.erb so that two forum searches
+             are not performed per actual search, improving performance at the same time.</li>
+      <li>   The first thread in the update.html.erb view is now selected by default to avoid server side
+             errors.</li>
+      <li>   Minor styling.</li>
+    </ul>
+  </li>
+</ul>
+
+
+<p style = "font-weight: bold; font-size:110%; text-align: center;">ALPHA Releases</p>
+
+<ul style = "list-style: none;">
+  <li>
+       v0.3.3 Alpha (Beta candidate)
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   The thread selection page now lets the user check a "radio button" rather than having to 
+             type the thread number in a text box.</li>
+      <li>   Almost done migrating code chunks to the searches_helper file.</li>
+    </ul>
+  </li>
+  <li>
+       v0.3.2 Alpha (Beta candidate)
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   Users may now choose the thread prefix through a dropdown select_tag.</li>
+      <li>   A "Copy to clipboard!" button has been added to the result show.html.erb page
+  	         for convenience.</li>
+      <li>   Forum category picker now works the way it should (no multiple choice functionality yet).</li>
+      <li>   Some minor styling.</li>
+      <li>   Will release BETA as soon as a few minor bugs are gone.</li>
+    </ul>
+  </li>
+  <li>
+       v0.3.1 Alpha (Beta candidate)
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   Simplified the forum category picker using a select_tag.</li>
+      <li>   Fixed the bad URI bug.</li>
+      <li>   A "Reset all fields" button has been added to the initial form in new.html.erb for
+  	         convenience.</li>
+      <li>   BETA Candidate.</li>
+    </ul>
+  </li>
+  <li>
+       v0.3.0 Alpha
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   Reworked the whole parsing code so that the app is not dependant of .txt files.</li>
+      <li>   Major interface changes.</li>
+      <li>   Parsed links now are presented inside a "code-box" for simplified selecting.</li>
+    </ul>
+  </li>
+  <li>
+       v0.2.0 Alpha
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   Sessions are now being used to avoid having to input login data twice.</li>
+      <li>   Links are now correctly parsed and written in the show.html.erb view.	</li>
+      <li>   Mostly functional, still getting errors when HREFs contains special characters (bad URI).</li>
+    </ul>
+  </li>
+  <li>
+       v0.1.0 Alpha
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   Initial ALPHA release.</li>
+      <li>   Threadlist is correctly parsed and written to update.tml.erb.</li>
+      <li>   Link are still not being correctly parsed. Possibly a problem with HTMLs staticness.</li>
+    </ul>
+  </li>
 
 <ul>

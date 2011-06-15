@@ -41,40 +41,32 @@ class SearchesController < ApplicationController
 
 
   def update
-    if params[:search][:threadchoice] != nil
-      threadchoice = params[:search][:threadchoice]
-      agent = Mechanize.new
-      
-      dologin(session[:username], session[:password], session[:digest], agent)
+    @threadchoice = params[:search][:threadchoice]
+    agent = Mechanize.new
+    dologin(session[:username], session[:password], session[:digest], agent)
 
-      url = ""
-      url = threadchoice
-      URI.parse(url.gsub(/ /, '+'))
-      page = agent.get(url)
-      @linklist = Array.new
-      @links = Array.new
-      postBody = page.parser.xpath('/html/body/div[2]/div[3]/div[2]/div/div/table/tr[2]/td[2]/div').map do |row|
-        strong = row.to_s
-        strong = strong.split(" ")
-        i=0
-        while (strong[i]!=nil)
-          if strong[i] =~ /megaupload/
-             line = strong[i].match(/\h([^<]+)/)
-             @linklist << line
-             @links << line
-             @links << " "
-          end
-          i=i+1
+    url = ""
+    url = @threadchoice
+    URI.parse(url.gsub(/ /, '+'))
+    page = agent.get(url)
+    @linklist = Array.new
+    @links = Array.new
+    postBody = page.parser.xpath('/html/body/div[2]/div[3]/div[2]/div/div/table/tr[2]/td[2]/div').map do |row|
+      strong = row.to_s
+      strong = strong.split(" ")
+      i=0
+      while (strong[i]!=nil)
+        if strong[i] =~ /megaupload/
+           line = strong[i].match(/\h([^<]+)/)
+           @linklist << line
+           @links << line
+           @links << " "
         end
+        i=i+1
       end
-      @links = @links.to_s
-      render 'show'
-
-    else
-      flash.now[:error] = "You must specify a thread."
-      @title = "Le Leecher"
-      render 'update'
     end
+    @links = @links.to_s
+    render 'show'
   end
 
   def show

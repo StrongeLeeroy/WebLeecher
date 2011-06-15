@@ -1,4 +1,4 @@
-<div class = "headerdiv"><p><span class="bigger">WebLeecher</span> <span class="smaller"><%= version %></span></p></div>
+<div class = "headerdiv"><p><span class="bigger">WebLeecher</span> Beta v0.4.0</p></div>
 
 <%= form_for(:search, :url => searches_path) do |f| %>
   <div id="searchnewleft">
@@ -11,20 +11,24 @@
       <%= f.label "Password:" %><br />
       <%= f.password_field :forumpass %>
     </div>
-
     <div class="field">
       <%= f.label "Search Query:" %><br />
       <%= f.text_field :forumquery %>
     </div>
-
-    <div class="actions">
-      <%= f.submit "Leech!" %>
-      <input type="reset" value="Reset all fields">
+    <div>
+    <p id = "troll" >Prefix:</p>
+    <%= select_tag :prefixchoice, options_for_select([
+        ["[MU] Megaupload", "MU"], ["[RS] Rapidshare", "RS"], ["[HF] Hotfile", "HF"],
+        ["[x7] x7", "x7"], ["[NL] Netload", "NL"], ["[MS] Megashares", "MS"], ["[FSn] Filesonic", "SM"], 
+        ["[MF] Mediafire", "MF"], ["[FF] Filefactory", "FF"], ["[DL] Duckload", "DL"], 
+        ["[FSrv] Fileserve", "FS"], ["[UL] Uploading", "UL"], ["[DF] Depositfiles", "DF"], ["[FTP]", "FTP"], 
+        ["[Other]", "Other"], ["[MULTI]", "Multi"], ["(any prefix)", ""], ["(no prefix)", "-1"]]), 
+        :class => "prefixchoice", :multiple => false %>
+    
     </div>
-
   </div>
 
-  <div class ="field">
+  <div>
     <p id = "troll2">Category:</p>
     <%= select_tag :forumchoice, options_for_select([
         ["WHOLE SITE", "6"], 
@@ -38,19 +42,12 @@
         [" ---- Crossovers", "87"], 
         [" Ebooks & Tutorials", "58"], [" Web/Design Resources", "75"]]), 
         :class => "forumchoice", :multiple => true %>
-    <div>
-    <span id = "troll">Prefix:</span>
-    <%= select_tag :prefixchoice, options_for_select([
-        ["[MU] Megaupload", "MU"], ["[RS] Rapidshare", "RS"], ["[HF] Hotfile", "HF"],
-        ["[x7] x7", "x7"], ["[NL] Netload", "NL"], ["[MS] Megashares", "MS"], ["[FSn] Filesonic", "SM"], 
-        ["[MF] Mediafire", "MF"], ["[FF] Filefactory", "FF"], ["[DL] Duckload", "DL"], 
-        ["[FSrv] Fileserve", "FS"], ["[UL] Uploading", "UL"], ["[DF] Depositfiles", "DF"], ["[FTP]", "FTP"], 
-        ["[Other]", "Other"], ["[MULTI]", "Multi"], ["(any prefix)", ""], ["(no prefix)", "-1"]]), 
-        :class => "prefixchoice", :multiple => false %>
     
-    </div>
   </div>
-
+  <div class="actions" id = "Leech">
+    <%= f.submit "Leech!", :id => "LeechButton" %>
+    <input id = "ResetButton" type="reset" value="Reset all fields">
+  </div>
 
   <!-- To be implemented
   <div id = "childforums">
@@ -60,3 +57,4 @@
   -->
 
 <% end %>
+<span class="smaller2"><%= version %></span>

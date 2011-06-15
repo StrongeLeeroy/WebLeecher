@@ -4,6 +4,7 @@
 <div style = "margin-bottom: -15px;">
   <%= clippy(@links, bgcolor='#E6E6E6') %>
 </div>
+<span class = "smaller3">Thread link: <%= link_to "Click Here", @threadchoice %></span>
 <div class="code-box">
   <% i = 0 %> 
   <% while (@linklist[i]!=nil) %>
@@ -11,5 +12,6 @@
     <% i = i + 1 %>
   <% end %>
 </div>
+
 
 <span class="smaller2"><%= version %></span>
