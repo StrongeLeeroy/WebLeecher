@@ -1,4 +1,4 @@
-<span class = "bigger"> WebLeecher ALPHA v0.3 </span>
+<p><span class = "bigger"> WebLeecher ALPHA v0.3 </span></p>
 
     <p>WebLeecher is the <a href = "http://www.rubyonrails.org/"> Ruby on Rails</a> adaptation of <a href = "mailto:revy@lethalia.net">Revy</a>'s forum Leecher.</p>
     <p>Additional information, version changelog and project status can be found in our <a href = "https://github.com/StrongeLeeroy/WebLeecher">Github Repository</a>.</p>
@@ -8,7 +8,25 @@
 
 <ul style = "list-style: none;">
   <li>
-       v0.4.1 Alpha
+       v0.4.3 Beta
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   The "Generate DLC" button has been renamed to "Download DLC". The New search page (new.html.erb) now allows the user to choose
+        wether he/she would like the search to generate a DLC file or not. If the user chooses to generate a DLC, the "Download DLC" button
+        will show up in the results page (show.html.erb). This should reduce the wait time for those who do not need the DLC file.</li>
+      <li>   The generated DLC's name was just a random combination of digits from 0 to 9, it has been changed to a more complex and secure hex
+        value to avoid repetition while the /tmp/ folder hasn't gone through the daily erase.</li>
+    </ul>
+  </li>
+  <li>
+       v0.4.2 Beta
+    <ul style = "list-style: square; padding-bottom:10px;">
+      <li>   A "Generate DLC" button has been added to the Results page (show.html.erb).</li>
+      <li>   It is now possible to search for 13 different download providers rather than just [MU] links.</li>
+      <li>   Some significant styling.</li>
+    </ul>
+  </li>
+  <li>
+       v0.4.1 Beta
     <ul style = "list-style: square; padding-bottom:10px;">
       <li>   Initial Search submit form (new.html.erb) has been redesigned for a easier and more intuitive design.</li>
       <li>   A link to the origin thread has been added to the Results page (show.html.erb) for convenience (ex: To check if there is a password to the file).</li>
@@ -17,7 +35,7 @@
     </ul>
   </li>
   <li>
-       v0.4.0 Alpha
+       v0.4.0 Beta
     <ul style = "list-style: square; padding-bottom:10px;">
       <li>   Bad URI code was being cause by the 35 second limit between searches. To avoid this, the
              thread links have been added to the values in the update.html.erb so that two forum searches

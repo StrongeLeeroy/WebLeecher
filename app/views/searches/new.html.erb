@@ -15,6 +15,7 @@
       <%= f.label "Search Query:" %><br />
       <%= f.text_field :forumquery %>
     </div>
+
     <div>
     <p id = "troll" >Prefix:</p>
     <%= select_tag :prefixchoice, options_for_select([
@@ -25,6 +26,9 @@
         ["[Other]", "Other"], ["[MULTI]", "Multi"], ["(any prefix)", ""], ["(no prefix)", "-1"]]), 
         :class => "prefixchoice", :multiple => false %>
     
+    </div>
+        <div>
+      <%= f.check_box :dlc %> <span class = "smaller"> Generate DLC? </span>
     </div>
   </div>
 

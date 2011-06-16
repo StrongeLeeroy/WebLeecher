@@ -70,6 +70,46 @@ module SearchesHelper
       end
   end
 
+  def mirror(provider)
+    if provider == "MU"
+      return "megaupload"
+    elsif provider == "RS"
+      return "rapidshare"
+    elsif provider == "HF"
+      return "hotfile"
+    elsif provider == "x7"
+      return "x7"
+    elsif provider == "NL"
+      return "netload"
+    elsif provider == "MS"
+      return "megashares"
+    elsif provider == "SM"
+      return "filesonic"
+    elsif provider == "MF"
+      return "mediafire"
+    elsif provider == "FF"
+      return "filefactory"
+    elsif provider == "DL"
+      return "duckload"
+    elsif provider == "FS"
+      return fileserve
+    elsif provider == "UL"
+      return "uploading"
+    elsif provider == "DF"
+      return "depositfiles"
+    elsif provider == "FTP"
+      return //
+    elsif provider == "Other"
+      return //
+    elsif provider == "Multi"
+      return //
+    elsif provider == ""
+      return //
+    elsif provider == "-1"
+      return //
+    end
+  end
+
   def clippy(text, bgcolor='#FFFFFF')
     <<-EOF.html_safe
       <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"

@@ -1,0 +1,34 @@
+#@threadchoice = session[:threadchoice]
+    #agent = Mechanize.new
+    #dologin(session[:username], session[:password], session[:digest], agent)
+    
+    #a = mirror(session[:prefixchoice])
+    @p = DLC::Package.new
+    #url = ""
+    #url = @threadchoice
+    #URI.parse(url.gsub(/ /, '+'))
+    #page = agent.get(url)
+    #@linklist = Array.new
+    #@links = Array.new
+    #postBody = page.parser.xpath('/html/body/div[2]/div[3]/div[2]/div/div/table/tr[2]/td[2]/div').map do |row|
+      #strong = row.to_s
+      #strong = strong.split(" ")
+      #i=0
+      #while (strong[i]!=nil)
+        #if strong[i] =~ /#{a}/
+           #line = strong[i].match(/\h([^<]+)/)
+           #@p.add_link("#{line}")
+        #end
+        #i=i+1
+      #end
+    #end
+    i = 0
+    @linklist = params[:links]
+    while (@linklist[i]!=nil)
+      @p.add_link("#{@linklist[i]}") 
+      i = i + 1
+    end
+    filename = (0..9).to_a.shuffle[0..15].join + ".dlc"
+    send_data @p.dlc,
+              :filename => "#{filename}",
+              :type => "application/dlc"

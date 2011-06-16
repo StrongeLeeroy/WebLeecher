@@ -1,7 +1,9 @@
 module ApplicationHelper
   
   def version
-    "WebLeecher BETA v0.4.0"
+    <<-EOF.html_safe
+      WebLeecher BETA v0.4.3 &copyCopyright 2011
+    EOF
   end
 
   def logo

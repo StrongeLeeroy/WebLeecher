@@ -1,16 +1,15 @@
 require 'mechanize'
 require 'digest'
 require 'uri'
+require 'dlc'
+require 'active_support/secure_random'
 class SearchesController < ApplicationController
 
   def new
     @title = "Le Leecher"
   end
 
-  def reset
-    @title = "Le Leecher"
-    render 'new'
-  end
+
 
   def create
     session[:username] = params[:search][:forumuser]
@@ -18,6 +17,7 @@ class SearchesController < ApplicationController
     session[:query] = params[:search][:forumquery]
     session[:forumchoice] = params[:forumchoice]
     session[:prefixchoice] = params[:prefixchoice]
+    session[:dlc] = params[:search][:dlc]
 
     session[:digest] = Digest::MD5.hexdigest(session[:password])
     agent = Mechanize.new
@@ -42,8 +42,11 @@ class SearchesController < ApplicationController
 
   def update
     @threadchoice = params[:search][:threadchoice]
+    session[:threadchoice] = @threadchoice
     agent = Mechanize.new
     dologin(session[:username], session[:password], session[:digest], agent)
+    @dlc = session[:dlc]
+    a = mirror(session[:prefixchoice])
 
     url = ""
     url = @threadchoice
@@ -56,7 +59,7 @@ class SearchesController < ApplicationController
       strong = strong.split(" ")
       i=0
       while (strong[i]!=nil)
-        if strong[i] =~ /megaupload/
+        if strong[i] =~ /#{a}/
            line = strong[i].match(/\h([^<]+)/)
            @linklist << line
            @links << line
@@ -66,8 +69,22 @@ class SearchesController < ApplicationController
       end
     end
     @links = @links.to_s
+    if @dlc != "0"
+      @p = DLC::Package.new
+      i = 0
+      while (@linklist[i]!=nil)
+        @p.add_link("#{@linklist[i]}") 
+        i = i + 1
+      end
+      session[:dlcname] = SecureRandom.hex(13) + ".dlc"
+      open("tmp/#{session[:dlcname]}","w") do |f|
+        f.write @p.dlc
+      end
+    end
     render 'show'
   end
+
+
 
   def show
     if params[:search][:threadchoice].nil?
@@ -76,5 +93,14 @@ class SearchesController < ApplicationController
       @title = "Le Leecher Results"
     end
   end
+
+
+
+  def download
+    @filename ="tmp/#{session[:dlcname]}"
+    send_file(@filename, :filename => "#{session[:dlcname]}", :stream => false)
+  end
+
+
 
 end

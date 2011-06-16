@@ -1,17 +1,24 @@
-<div><span class="bigger">Results</span></div>
+<div><p><span class="bigger">Results</span></p></div>
 
 
-<div style = "margin-bottom: -15px;">
+
+<div style = "margin-bottom: -15px; padding-top: 10px;">
   <%= clippy(@links, bgcolor='#E6E6E6') %>
 </div>
 <span class = "smaller3">Thread link: <%= link_to "Click Here", @threadchoice %></span>
 <div class="code-box">
-  <% i = 0 %> 
+  <% i = 0 %>
   <% while (@linklist[i]!=nil) %>
-    <%= "#{@linklist[i]}" %> <br />
+	<%= "#{@linklist[i]}" %> <br />
     <% i = i + 1 %>
   <% end %>
 </div>
 
-
+<% if @dlc != "0" %>
+	<%= form_for(:search, :url => { :action => 'download'}) do |f| %>
+		<div class="actions">
+			<%= f.submit "Download DLC" %>
+		</div>
+	<% end %>
+<% end %>
 <span class="smaller2"><%= version %></span>

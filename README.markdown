@@ -1,8 +1,6 @@
-#DEV BRANCH PLACEHOLDER :D
+#WebLeecher BETA v0.4 Development Branch
 
-
-
-#WebLeecher BETA v0.4
+This is an unstable branch meant for development and testing, although it might be unstable, it also includes the latest changes.
 
 The Ruby code behind the App is being developed by [Revy](mailto:revy@lethalia.net).
 
@@ -12,13 +10,23 @@ The Rails port and web interface are being worked out by [Leeroy](mailto:leeroy@
 
 ##Beta Releases:
 
+*   v0.4.3 Beta
+    -   The "Generate DLC" button has been renamed to "Download DLC". The New search page (new.html.erb) now allows the user to choose
+        wether he/she would like the search to generate a DLC file or not. If the user chooses to generate a DLC, the "Download DLC" button
+        will show up in the results page (show.html.erb). This should reduce the wait time for those who do not need the DLC file.
+    -   The generated DLC's name was just a random combination of digits from 0 to 9, it has been changed to a more complex and secure hex
+        value to avoid repetition while the /tmp/ folder hasn't gone through the daily erase.
+ 
+*   v0.4.2 Beta
+    -   A "Generate DLC" button has been added to the Results page (show.html.erb).
+    -   It is now possible to search for 13 different download providers rather than just [MU] links.
+    -   Some significant styling.
+
 *   v0.4.1 Beta
     -   Initial Search submit form (new.html.erb) has been redesigned for a easier and more intuitive design.
     -   A link to the origin thread has been added to the Results page (show.html.erb) for convenience (ex: To check if there is a password to the file).
     -   About page has been updated and styled.
     -   Minor styling (font styling for the most part).
-
-
 
 *   v0.4.0 Beta
     -   Bad URI code was being cause by the 35 second limit between searches. To avoid this, the
