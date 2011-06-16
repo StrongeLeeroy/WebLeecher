@@ -23,13 +23,13 @@ The Rails port and web interface are being worked out by [Leeroy](mailto:leeroy@
     -   Some significant styling.
 
 *   v0.4.1 Beta
-    -   Initial Search submit form (new.html.erb) has been redesigned for a easier and more intuitive design.
+    -   Initial Search submit form (new.html.erb) has been redesigned for an easier and more intuitive design.
     -   A link to the origin thread has been added to the Results page (show.html.erb) for convenience (ex: To check if there is a password to the file).
     -   About page has been updated and styled.
     -   Minor styling (font styling for the most part).
 
 *   v0.4.0 Beta
-    -   Bad URI code was being cause by the 35 second limit between searches. To avoid this, the
+    -   Bad URI code was being caused by the 35 second limit between searches. To avoid this, the
         thread links have been added to the values in the update.html.erb so that two forum searches
         are not performed per actual search, improving performance at the same time.
     -   The first thread in the update.html.erb view is now selected by default to avoid server side
