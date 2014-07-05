@@ -62,7 +62,7 @@ The Rails port and web interface are being worked out by [Leeroy](mailto:leeroy@
     -   BETA Candidate.
 
 *   v0.3.0 Alpha
-    -   Reworked the whole parsing code so that the app is not dependant of .txt files.
+    -   Reworked the whole parsing code so that the app is not dependent of .txt files.
     -   Major interface changes.
     -   Parsed links now are presented inside a "code-box" for easier selecting.
 
